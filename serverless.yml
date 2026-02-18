@@ -6,7 +6,7 @@ provider:
 
 functions:
   health:
-    handler: handler.health
+    handler: src/handler.health
     events:
       - httpApi:
           path: /api/health
