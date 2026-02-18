@@ -1,0 +1,24 @@
+# Node
+node_modules/
+
+# Serverless build
+.serverless/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+logs
+
+# Build / compiled files
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

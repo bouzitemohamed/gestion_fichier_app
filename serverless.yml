@@ -1,0 +1,16 @@
+service: my-service
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  health:
+    handler: handler.health
+    events:
+      - httpApi:
+          path: /api/health
+          method: GET
+
+plugins:
+  - serverless-offline
