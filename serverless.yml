@@ -1,16 +1,25 @@
-service: my-service
+service: gestin-fichiers-app
 
 provider:
   name: aws
   runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
 
 functions:
   health:
-    handler: src/handler.health
+    handler: src/handlers/health.handler  # points to health.handler.js
     events:
       - httpApi:
           path: /api/health
           method: GET
+
+  createUser:
+    handler: src/handlers/user.handler.createUser  # points to user.handler.js
+    events:
+      - httpApi:
+          path: /api/users
+          method: POST
 
 plugins:
   - serverless-offline
