@@ -1,5 +1,5 @@
 'use strict';
-const { createUser } = require('../controllers/userController');
+const { createUser } = require('../controllers/user.Controller');
 
 module.exports.createUser = async (event) => {
   try {

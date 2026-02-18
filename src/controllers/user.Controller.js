@@ -1,5 +1,5 @@
 const sequelize = require('../config/db');
-const UserModel = require('../models/user')(sequelize);
+const UserModel = require('../models/user.model')(sequelize);
 const bcrypt = require('bcrypt');
 async function createUser(data) {
   // This is reusable anywhere
