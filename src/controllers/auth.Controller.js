@@ -1,40 +1,33 @@
 const sequelize = require('../config/db');
 const User = require("../models/user.model")(sequelize);
-const jwt = require("jsonwebtoken");
+const { generateNormalToken, generateOrGetRefreshToken } = require("../services/token.Service");
 const bcrypt = require("bcrypt");
 
-function createToken(user) {
-  return jwt.sign(
-    {
-      id: user.id,
-      name: user.name,
-    },
-    process.env.JWT_SECRET_KEY,
-    {
-      expiresIn: process.env.JWT_EXPIRE_IN,
-    }
-  );
-}
+async function login(data) { 
+  const isUser = await User.findOne({ where: { email: data.body.email } });
 
-async function login(data) {
-  const isUser = await User.findOne({ where: { email: data.email } });
+  if (!isUser) return { error: "User not found" };
 
-  if (!isUser) {
-    return { error: "User not found" };
-  }
+  const isPassword = await bcrypt.compare(data.body.password, isUser.password);
+  if (!isPassword) return { error: "Password incorrect" };
 
-  const isPassword = await bcrypt.compare(data.password, isUser.password);
+  
+  const normal_token = generateNormalToken(isUser);
 
-  if (!isPassword) {
-    return { error: "Password incorrect" };
-  }
+ 
+  const data_login = {
+    user: isUser,
+    user_agent:data.user_agent,
+    ip_address: data.ip_address,
+  };
 
-  const token = createToken(isUser);
 
-  // remove password before sending response
+  const { refresh_token } = await generateOrGetRefreshToken(data_login);
+
+
   isUser.password = undefined;
 
-  return { token, user: isUser };
+  return { normal_token, refresh_token, user: isUser };
 }
 
 module.exports = {

@@ -13,17 +13,19 @@ provider:
     DB_HOST: ${env:DB_HOST}
     JWT_SECRET_KEY: ${env:JWT_SECRET_KEY}
     JWT_EXPIRE_IN: ${env:JWT_EXPIRE_IN}
+    JWT_REFRESH_SECRET_KEY: ${env:JWT_REFRESH_SECRET_KEY}
+    JWT_REFRESH_EXPIRE_IN: ${env:JWT_REFRESH_EXPIRE_IN}
 
 functions:
   health:
-    handler: src/handlers/healthHandler.health  # points to health.handler.js
+    handler: src/handlers/healthHandler.health  
     events:
       - httpApi:
           path: /api/health
           method: GET
 
   createUser:
-    handler: src/handlers/userHandler.createUser  # points to user.handler.js
+    handler: src/handlers/userHandler.createUser  
     events:
       - httpApi:
           path: /api/users

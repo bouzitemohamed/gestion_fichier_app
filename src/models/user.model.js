@@ -1,6 +1,5 @@
 'use strict';
 const { DataTypes } = require('sequelize');
-
 module.exports = (sequelize) => {
   const User = sequelize.define('User', {
     name: {
@@ -18,7 +17,13 @@ module.exports = (sequelize) => {
       unique: false,
   },
   });
-
+  User.associate = (models) => {
+  User.hasMany(models.UserSessions, {
+      foreignKey: 'user_id',
+      as: 'sessions',
+      onDelete: 'CASCADE'
+    });
+  };
   return User;
 };
 
