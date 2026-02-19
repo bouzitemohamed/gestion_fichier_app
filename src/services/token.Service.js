@@ -13,7 +13,7 @@ function generateNormalToken(user) {
 }
 
 async function generateOrGetRefreshToken({ user, user_agent, ip_address }) {
-  // 1️⃣ Try to find existing session for this user + device
+  
   let session = await UserSessions.findOne({
     where: { user_id: user.id, user_agent, ip_address }
   });
