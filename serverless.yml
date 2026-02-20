@@ -18,24 +18,39 @@ provider:
 
 functions:
   health:
-    handler: src/handlers/healthHandler.health  
+    handler: src/handlers/healthHandler.health
     events:
       - httpApi:
           path: /api/health
           method: GET
 
   createUser:
-    handler: src/handlers/userHandler.createUser  
+    handler: src/handlers/userHandler.createUser
     events:
       - httpApi:
           path: /api/users
           method: POST
-  auth:
+
+  login:
     handler: src/handlers/authHandler.loginHandler
     events:
       - httpApi:
-          path: /api/auth
+          path: /api/auth/login
           method: POST
+
+  refreshToken:
+    handler: src/handlers/authHandler.refreshTokenHandler
+    events:
+      - httpApi:
+          path: /api/auth/refresh_token
+          method: POST
+
+  createCategory:
+    handler: src/handlers/categoryHandler.createCategoryHandler
+    events:
+      - httpApi:
+          path: /api/category
+          method: POST
+
 plugins:
   - serverless-offline
-  

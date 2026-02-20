@@ -3,7 +3,7 @@ const { createCategoryController } = require('../controllers/category.Controller
 
 const createCategoryHandler = async (event) => {
   try {
-
+    
     const body = JSON.parse(event.body);
 
     const category = await createCategoryController(body);
