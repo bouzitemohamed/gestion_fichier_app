@@ -1,19 +1,27 @@
-'use strict';
-const { createCategoryController } = require('../controllers/category.Controller');
+const authMiddleware = require("../middlewares/authMiddleware");
+const { createCategoryController } = require("../controllers/category.Controller");
 
 const createCategoryHandler = async (event) => {
   try {
     
-    const body = JSON.parse(event.body);
+    const auth = await authMiddleware(event);
 
-    const category = await createCategoryController(body);
+    if (auth.error) {
+      return {
+        statusCode: auth.statusCode,
+        body: JSON.stringify({ error: auth.error }),
+      };
+    }
+
+    
+    const user = auth.user;
+
+    const body = JSON.parse(event.body);
+    const category = await createCategoryController(body, user);
 
     return {
       statusCode: 201,
-      body: JSON.stringify({
-        message: "Category created successfully",
-        category,
-      }),
+      body: JSON.stringify(category),
     };
   } catch (error) {
     console.error(error);
@@ -24,6 +32,4 @@ const createCategoryHandler = async (event) => {
   }
 };
 
-module.exports = {
-  createCategoryHandler,
-};
+module.exports = { createCategoryHandler };
