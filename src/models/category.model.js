@@ -13,6 +13,11 @@ module.exports = (sequelize) => {
     tableName: 'categories', 
     timestamps: true,        
   });
-
+  Category.associate = (models) => {
+  Category.hasMany(models.Author, {
+    foreignKey: "category_id",
+    as: "authors",
+  });
+};
   return Category;
 };
