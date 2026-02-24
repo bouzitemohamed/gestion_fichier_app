@@ -1,4 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
+'use strict';
+const { DataTypes } = require('sequelize');
+module.exports = (sequelize) => {
   const Author = sequelize.define(
     "Author",
     {

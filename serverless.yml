@@ -51,6 +51,18 @@ functions:
       - httpApi:
           path: /api/category
           method: POST
+  getAuthor:
+    handler: src/handlers/authorHandler.getAuthorHandler
+    events:
+      - httpApi:
+          path: /api/author/{id}
+          method: GET
+  createAuthor:
+    handler: src/handlers/authorHandler.createAuthorHandler
+    events:
+      - httpApi:
+          path: /api/author
+          method: POST
 
 plugins:
   - serverless-offline
