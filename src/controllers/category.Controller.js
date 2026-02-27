@@ -1,19 +1,40 @@
-const { createCategory } = require('../services/category.service');
+const {
+  createCategory,
+  getCategoryById,
+  getAllCategories,
+  updateCategory,
+  deleteCategory,
+} = require('../services/category.service');
 
+// CREATE
 async function createCategoryController(body) {
-  try {
-    const  name  = body.name;
+  return await createCategory(body.name);
+}
 
-    const category = await createCategory(name);
+// GET BY ID
+async function getCategoryByIdController(id) {
+  return await getCategoryById(id);
+}
 
-    return category;
-    
-  } catch (error) {
-    console.error(error);
-    return {statusCode:400,error: error.message };
-  }
+// GET ALL
+async function getAllCategoriesController() {
+  return await getAllCategories();
+}
+
+// UPDATE
+async function updateCategoryController(id, body) {
+  return await updateCategory(id, body.name);
+}
+
+// DELETE
+async function deleteCategoryController(id) {
+  return await deleteCategory(id);
 }
 
 module.exports = {
   createCategoryController,
+  getCategoryByIdController,
+  getAllCategoriesController,
+  updateCategoryController,
+  deleteCategoryController,
 };

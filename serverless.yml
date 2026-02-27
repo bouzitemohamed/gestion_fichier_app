@@ -45,18 +45,38 @@ functions:
           path: /api/auth/refresh_token
           method: POST
 
-  createCategory:
-    handler: src/handlers/categoryHandler.createCategoryHandler
+ 
+  category:
+    handler: src/handlers/categoryHandler.categoryHandler
     events:
       - httpApi:
           path: /api/category
           method: POST
+
+      - httpApi:
+          path: /api/category/{id}
+          method: GET
+
+      - httpApi:
+          path: /api/categories
+          method: GET
+
+      - httpApi:
+          path: /api/category/{id}
+          method: PUT
+
+      - httpApi:
+          path: /api/category/{id}
+          method: DELETE
+
+  
   getAuthor:
     handler: src/handlers/authorHandler.getAuthorHandler
     events:
       - httpApi:
           path: /api/author/{id}
           method: GET
+
   createAuthor:
     handler: src/handlers/authorHandler.createAuthorHandler
     events:
