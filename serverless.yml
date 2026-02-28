@@ -83,6 +83,24 @@ functions:
       - httpApi:
           path: /api/author
           method: POST
+  book:
+  handler: src/handlers/bookHandler.bookHandler
+  events:
+    - httpApi:
+        path: /api/books
+        method: GET
+    - httpApi:
+        path: /api/books/{id}
+        method: GET
+    - httpApi:
+        path: /api/books
+        method: POST
+    - httpApi:
+        path: /api/books/{id}
+        method: PUT
+    - httpApi:
+        path: /api/books/{id}
+        method: DELETE
 
 plugins:
   - serverless-offline
